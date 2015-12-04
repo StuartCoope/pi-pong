@@ -1,7 +1,11 @@
 var gpio = require("pi-gpio");
+
+gpio.setMode('MODE_BCM');
+
 gpio.close(7); 
-gpio.close(11);
-gpio.close(13);
+gpio.close(10);
+gpio.close(9);
+
 
 var Game = require("./game.js");
 var Output = require("./output.js");

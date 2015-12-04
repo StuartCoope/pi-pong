@@ -4,8 +4,8 @@ var Sound = require('./sound.js');
 var redButton = new inputs.led(7);
 
 var buttonInputs = {
-	red : 13,
-	green: 11
+	red : 9,
+	green: 10
 }
 var Game = function(output) {
 	this.output = output;
@@ -26,6 +26,16 @@ var Game = function(output) {
 
 	this.winPoint = function(player) {
 		player.score += 1;
+		var enemy;
+		if (player.name == 'Red') {
+			enemy = players.green;
+		} else {
+			enemy = players.red;
+		}
+		if (player.score >= 11 && (player.score - enemy.score) >= 2) {
+			this.endGame(player);
+			return;
+		}
 		this.output.print('Red: ' + this.players.red.score + '   Green: ' + this.players.green.score);
 		if (player.score > 10) {
 			this.endGame(player);
