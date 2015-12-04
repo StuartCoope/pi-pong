@@ -26,9 +26,13 @@ var button = function(pin) {
 	var checkResult = function(result) {
 		if(result !== state){
 			if(result === buttonPushedState) {
-				onUp();
+				if(typeof onUp === 'function'){
+					onUp();
+				}
 			}else{
-				onDown();
+				if(typeof onDown === 'function'){
+					onDown();
+				}
 			}
 		}
 		state = result;
