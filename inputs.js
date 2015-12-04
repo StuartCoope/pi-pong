@@ -6,7 +6,7 @@ var q = require('q');
 var events = [];
 
 var button = function(pin) {
-	var buttonPushedState = 0;
+	var buttonPushedState = 1;
 
 	this.pin = pin;
 	var state = false;
