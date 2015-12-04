@@ -1,9 +1,6 @@
 var gpio = require("pi-gpio");
-
 gpio.close(7); 
-gpio.close(10);
-gpio.close(9);
-
+gpio.close(11);
 
 var Game = require("./game.js");
 var Output = require("./output.js");
