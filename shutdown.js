@@ -1,5 +1,4 @@
 var gpio = require("pi-gpio");
 
-var ledPin = 7; 
-
-gpio.close(ledPin); 
+gpio.close(7); 
+gpio.close(11)

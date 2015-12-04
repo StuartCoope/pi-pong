@@ -1,9 +1,36 @@
 var gpio = require("pi-gpio");
-var inputs = require("inputs");
+gpio.close(7); 
+gpio.close(11)
+
+var inputs = require("./inputs.js");
 var ledPin = 7;
 
 var buttonInputs = [11];
 
+var greenButton = new inputs.button(11);
+var led = new inputs.led(7);
+
+greenButton.onUp(function(){
+	led.on();
+	console.log("Green Up");
+});
+
+greenButton.onDown(function(){
+	led.off();
+	console.log("Green Down");
+});
+
+var repl = require('repl');
+var replServer = repl.start('> ');
+
+var shutdown = function() {
+	greenButton.cleanUp().then(process.exit);
+};
+
+var replServer = repl.start('> ');
+replServer.context.shutdown = shutdown;
+
+/*
 var ledOn = function(callback) {
   gpio.open(ledPin, "output", function(err) {
     gpio.write(ledPin, 1, function() {
@@ -43,3 +70,4 @@ var replServer = repl.start('> ');
 replServer.context.ledOn = ledOn;
 replServer.context.ledOff = ledOff;
 replServer.context.shutdown = shutdown;
+*/
