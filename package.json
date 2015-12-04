@@ -1,0 +1,16 @@
+{
+  "name": "pi-pong",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stuartp4l/pi-pong.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stuartp4l/pi-pong/issues"
+  },
+  "homepage": "https://github.com/stuartp4l/pi-pong#readme"
+}
