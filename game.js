@@ -33,9 +33,9 @@ var Game = function(output) {
 		player.score += 1;
 		var enemy;
 		if (player.name == 'Red') {
-			enemy = player.green;
+			enemy = this.players.green;
 		} else {
-			enemy = player.red;
+			enemy = this.players.red;
 		}
 		if (player.score >= 11 && (player.score - enemy.score) >= 2) {
 			this.endGame(player);
