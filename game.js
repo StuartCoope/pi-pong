@@ -4,8 +4,8 @@ var Sound = require('./sound.js');
 var redButton = new inputs.led(7);
 
 var buttonInputs = {
-	red : 9,
-	green: 10
+	red : 11,
+	green: 7
 }
 var Game = function(output) {
 	this.output = output;
