@@ -1,7 +1,5 @@
 var gpio = require("pi-gpio");
 
-gpio.setMode('MODE_BCM');
-
 gpio.close(7); 
 gpio.close(10);
 gpio.close(9);

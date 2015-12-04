@@ -24,6 +24,11 @@ var Game = function(output) {
 		vm.winPoint(vm.players.green);
 	});
 
+	this.startGame = function () {
+		this.players.red.score = 0;
+		this.players.green.score = 0;
+	}
+
 	this.winPoint = function(player) {
 		player.score += 1;
 		var enemy;
@@ -43,11 +48,10 @@ var Game = function(output) {
 		this.sound.playSound('newPoint');
 	}
 
-	this.endGame = function (winningPlayer) {
-		this.players.red.score = 0;
-		this.players.green.score = 0;
+	this.endGame = function (winningPlayer) {	
 		this.output.print(winningPlayer.name + ' has won!');
 		this.sound.playSound('winner');
+		this.startGame();
 	}
 };
 
