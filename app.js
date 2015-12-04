@@ -1,6 +1,7 @@
 var gpio = require("pi-gpio");
 gpio.close(7); 
-gpio.close(11)
+gpio.close(11);
+gpio.close(13);
 
 var inputs = require("./inputs.js");
 var ledPin = 7;
@@ -8,7 +9,16 @@ var ledPin = 7;
 var buttonInputs = [11];
 
 var greenButton = new inputs.button(11);
+var redButton = new inputs.button(13);
 var led = new inputs.led(7);
+
+redButton.onUp(function(){
+	console.log("Red Up");
+});
+
+redButton.onDown(function(){
+	console.log("Red Down");
+});
 
 greenButton.onUp(function(){
 	led.on();
