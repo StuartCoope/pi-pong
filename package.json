@@ -12,5 +12,8 @@
   "bugs": {
     "url": "https://github.com/stuartp4l/pi-pong/issues"
   },
-  "homepage": "https://github.com/stuartp4l/pi-pong#readme"
+  "homepage": "https://github.com/stuartp4l/pi-pong#readme",
+  "dependencies": {
+    "pi-gpio": "0.0.8"
+  }
 }
