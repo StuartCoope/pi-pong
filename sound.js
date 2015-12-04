@@ -9,11 +9,14 @@ var Sound = function () {
 	} ;
 
  	this.audioPlayer = require('play-sound')(opts = {player: 'mpg123'});
-
+ 	
+ 	var vm = this;
  	this.playSound = function (type) {
- 		fs.readdir('sounds/' + this.modes[type] + '/', function(err, files) {
+ 		fs.readdir('sounds/' + vm.modes[type] + '/', function(err, files) {
  			var ri = Math.floor(Math.random() * files.length);
- 			this.audioPlayer.play('sounds/' + this.modes[type] + '/' + files[ri]);
+ 			vm.audioPlayer.play('sounds/' + vm.modes[type] + '/' + files[ri], function (err) {
+
+ 			});
  		});
  		
  	}
