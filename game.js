@@ -4,55 +4,80 @@ var Sound = require('./sound.js');
 var redButton = new inputs.led(7);
 
 var buttonInputs = {
-	red : 11,
-	green: 7
+	red : 13,
+	green: 11
 }
 var Game = function(output) {
-	this.output = output;
-	this.sound = new Sound();
-	this.players = {
+	var self = this;
+	self.output = output;
+	self.sound = new Sound();
+	self.players = {
 		red: new Player('Red', new inputs.button(buttonInputs.red)),
 		green: new Player('Green', new inputs.button(buttonInputs.green))
 	};
 
-	var vm = this;
-	this.players.red.button.onDown(function() {
-		vm.winPoint(vm.players.red);
+	var redTimeout = null;
+	var greenTimeout = null;
+	
+	self.players.red.button.onDown(function() {
+		self.winPoint(self.players.red);
+		redTimeout = setTimeout(function(){self.startGame(true);}, 1000);
 	});
 
-	this.players.green.button.onDown(function() {
-		vm.winPoint(vm.players.green);
+	self.players.green.button.onDown(function() {
+		self.winPoint(self.players.green);
+		greenTimeout = setTimeout(function(){self.startGame(true); }, 1000);
 	});
 
-	this.startGame = function () {
-		this.players.red.score = 0;
-		this.players.green.score = 0;
+	self.players.green.button.onUp(function() {
+		clearTimeout(greenTimeout);
+	});
+
+	self.players.red.button.onUp(function() {
+		clearTimeout(redTimeout);
+	})
+
+	self.startGame = function (sound) {
+		self.output.print('New Game!');
+		if(sound){
+			self.sound.playSound('beginGame');
+		}
+		self.players.red.score = 0;
+		self.players.green.score = 0;
 	}
 
-	this.winPoint = function(player) {
+	self.winPoint = function(player) {
 		player.score += 1;
 		var enemy;
 		if (player.name == 'Red') {
-			enemy = this.players.green;
+			enemy = self.players.green;
 		} else {
-			enemy = this.players.red;
+			enemy = self.players.red;
 		}
-		if (player.score >= 11 && (player.score - enemy.score) >= 2) {
-			this.endGame(player);
-			return;
+		if (player.score >= 11) {
+			if ((player.score - enemy.score) >= 2)
+				self.endGame(player);
+			else {
+				self.sound.playSound('newPoint');
+				self.output.print('Red: ' + self.players.red.score + '   Green: ' + self.players.green.score);
+				return;
+			}
 		}
-		this.output.print('Red: ' + this.players.red.score + '   Green: ' + this.players.green.score);
+		self.output.print('Red: ' + self.players.red.score + '   Green: ' + self.players.green.score);
 		if (player.score > 10) {
-			this.endGame(player);
+			self.endGame(player);
 		}
-		this.sound.playSound('newPoint');
+		self.sound.playSound('newPoint');
 	}
 
-	this.endGame = function (winningPlayer) {	
-		this.output.print(winningPlayer.name + ' has won!');
-		this.sound.playSound('winner');
-		this.startGame();
+	self.endGame = function (winningPlayer) {	
+		self.output.print(winningPlayer.name + ' has won!');
+		self.sound.playSound('winner');
+
+		self.startGame();
 	}
+
+
 };
 
 module.exports = Game;

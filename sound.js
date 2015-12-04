@@ -9,7 +9,7 @@ var Sound = function () {
 	} ;
 
  	this.audioPlayer = require('play-sound')(opts = {player: 'mpg123'});
- 	
+
  	var vm = this;
  	this.playSound = function (type) {
  		fs.readdir('sounds/' + vm.modes[type] + '/', function(err, files) {
