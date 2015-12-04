@@ -6,7 +6,6 @@ var buttonInputs = {
 	red : 13,
 	green: 11
 }
-var buttonInputs = 
 var Game = function(output) {
 	this.output = output;
 	this.players = {
@@ -14,24 +13,28 @@ var Game = function(output) {
 		green: new Player('Green', new inputs.button(buttonInputs.green))
 	};
 
-	this.players.Red.onDown(function() {
-		this.winPoint(this.players.red);
+	var vm = this;
+	this.players.red.button.onDown(function() {
+		vm.winPoint(vm.players.red);
 	});
 
-	this.players.Green.onDown(function() {
-		this.winPoint(this.players.green);
+	this.players.green.button.onDown(function() {
+		vm.winPoint(vm.players.green);
 	});
+
+	this.winPoint = function(player) {
+		player.score += 1;
+		this.output.print('Red: ' + this.players.red.score + '   Green: ' + this.players.green.score);
+		if (player.score > 10) {
+			this.endGame(player);
+		}
+	}
+
+	this.endGame = function (winningPlayer) {
+		this.players.red.score = 0;
+		this.players.green.score = 0;
+		this.output.print(winningPlayer.name + ' has won!');
+	}
 };
 
-Game.prototype.winPoint = function(player) {
-	player.score += 1;
-	this.output.print('Red: ' this.players.red.score + '   Green: ' + this.players.green.score)
-	if (player.score > 10) {
-		this.endGame(player);
-	}
-}
-Game.prototype.endGame(winningPlayer) {
-	this.output.print(winningPlayer.name + ' has won!');
-}
-
-module.exports = Object.create(Game.prototype, {});
+module.exports = Game;

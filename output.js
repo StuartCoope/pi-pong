@@ -5,11 +5,11 @@ var Output = function() {
 	}
 
 	this.status = this.constants.STABLE;
+
+	this.print = function (text) {
+		//change when screen is working
+		console.log('> ' + text);
+	}
 }
 
-Output.prototype.print = function(text) {
-	//change when screen is working
-	console.log(text);
-}
-
-module.exports = Object.create(Output.prototype);
+module.exports = Output;

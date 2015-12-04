@@ -4,4 +4,4 @@ var Player = function(name, button) {
 	this.name = name;
 }
 
-module.exports = Object.create(Player.prototype, {});
+module.exports = Player;
